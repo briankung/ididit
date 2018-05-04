@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Dones</h1>
+
+<% if @read_only %>
+  <% @dones.each do |date, dones| %>
+    <h1><%= link_to "#{date} - #{date.strftime('%A')}", query_path(date) %></h1>
+    <% dones.each do |done| %>
+      <div><b><%= done.text %></b></div>
+    <% end %>
+  <% end %>
+<% else %>
+  <% @dones.each do |date, dones| %>
+    <h1>
+      <%= link_to image_tag('wolfram.ico', style: 'height: 20px;'), "http://www.wolframalpha.com/input/?i=#{date}" %>
+      <%= link_to date, query_path(date) %>
+      | <small><%= date.strftime('%A, %B %e') %> | <%= time_from_now(date) %></small>
+    </h1>
+    <%= render dones %>
+  <% end %>
+<% end %>
+
+<% if @dones.empty? && @param_is_date %>
+  <% date = Date.parse params[:q] %>
+  <h1>
+    <%= link_to image_tag('wolfram.ico', style: 'height: 20px;'), "http://www.wolframalpha.com/input/?i=#{params[:q]}" %>
+    <%= link_to params[:q], query_path(params[:q]) %>
+    | <small><%= date.strftime('%A, %B %e') %> | <%= time_from_now(date) %></small>
+  </h1>
+<% end %>
+
+<% done_date = @param_is_date ? param_date : Date.current %>
+
+<% if @param_is_date %>
+  <script type="text/javascript">
+    window.paramIsDate = true
+  </script>
+<% end %>

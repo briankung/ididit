@@ -1,0 +1,5 @@
+<div>
+  <%= link_to 'Edit', edit_done_path(done) %>
+  <b class="editable-entry"><%= done.text %></b>
+  <%= render 'dones/form', done: done, hidden: true %>
+</div>

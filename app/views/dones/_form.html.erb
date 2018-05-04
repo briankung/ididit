@@ -1,0 +1,17 @@
+<%= form_for done, html: {hidden: hidden} do |f| %>
+  <% if hidden %>
+    <%= f.text_field :text %>
+  <% else %>
+    <%= f.text_area :text %>
+  <% end %>
+
+  <%= f.text_field :date, hidden: true %>
+
+  <% if hidden %>
+    <%= f.submit hidden: hidden %>
+  <% else %>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+<% end %>

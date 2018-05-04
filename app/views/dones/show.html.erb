@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @done.date %>
+</p>
+
+<p>
+  <strong>Text:</strong>
+  <%= @done.text %>
+</p>
+
+<%= link_to 'Edit', edit_done_path(@done) %> |
+<%= link_to 'Back', dones_path %>

@@ -1,0 +1,20 @@
+<h1>Dones</h1>
+
+<%= form_tag dones_path, method: :post, class: "navbar-form navbar-left search-form" do %>
+  <%= text_area_tag(
+      :search,
+      @dones,
+      class: "form-control max-size borderless"
+  ) %>
+<% end %>
+
+<style media="screen">
+  .max-size {
+    width: 80vw;
+    height: 80vh;
+  }
+
+  .borderless {
+    border-width: 0; 
+  }
+</style>

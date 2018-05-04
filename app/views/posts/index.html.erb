@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Posts</h1>
+
+<ul>
+  <% @posts.each do |post| %>
+    <li>
+      <h2>
+        <%= link_to("(#{post.created_at.in_time_zone.strftime(DATE_FORMAT)}) #{post.title}", post) %> -
+        <small>
+          <%= link_to 'Edit', edit_post_path(post) %>
+          <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+          Words: <%= post.body.split.count %>
+        </small>
+      </h2>
+    </li>
+  <% end %>
+</ul>
+
+<%= render 'form', post: Post.new %>
+
+<%
+  words_per_post = {
+    name: 'Words per post', data: @posts.inject({}) {|m, p| m[p.created_at] = p.body.split.count; m}
+  }
+  average_words_per_post = @posts.map(&:body).join(' ').split.count / @posts.count
+
+  average_words_per_post_chart = {
+    name: 'Average words per post', data: @posts.inject({}) {|m, p| m[p.created_at] = average_words_per_post; m}
+  }
+  words_over_time = {
+    name: 'Words over time', data: @posts.pluck(:created_at).inject({}) {|m, date| m[date] = Post.where("created_at <= ?", date).inject(0) {|memo, p| memo += p.body.split.count; memo}; m}
+  }
+%>
+
+<h2>Words per post</h2>
+
+<%= line_chart [words_per_post, average_words_per_post_chart], colors: ['blue', 'orange'] %>
+
+<h2>Total words over time</h2>
+
+<%= line_chart words_over_time[:data], colors: ['green'] %>
+
+<p>Total words: <%= @posts.inject(0) {|memo, p| memo += p.body.split.count; memo} %></p>

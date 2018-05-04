@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IDidIt</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_pack_tag 'application' %>
+    <%= javascript_pack_tag 'dones' %>
+  </head>
+
+  <body>
+    <div class="search-bar">
+      <%= text_field_tag :q, nil, placeholder: 'search...' %>
+    </div>
+    <%= yield %>
+  </body>
+</html>
