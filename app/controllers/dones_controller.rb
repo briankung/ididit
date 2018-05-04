@@ -14,8 +14,14 @@ class DonesController < ApplicationController
   end
 
   def create
-    @dones = done_params[:text].split("\n").each do |t|
-      Done.create text: t, date: done_params[:date]
+    Done.transaction do
+      Done.where(date: date_param).destroy_all
+
+      @dones = Done.create(
+        dones_params.each_line.map do |done|
+          Hash[text: done.strip, date: date_param]
+        end
+      )
     end
 
     redirect_back(fallback_location: dones_path, notice: 'Dones successfully created.')
@@ -50,6 +56,14 @@ class DonesController < ApplicationController
   private
     def set_done
       @done = Done.find(params[:id])
+    end
+
+    def dones_params
+      params.require :dones
+    end
+
+    def date_param
+      params.require :date
     end
 
     def done_params

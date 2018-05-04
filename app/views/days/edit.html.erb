@@ -1,11 +1,17 @@
-<h1>Dones</h1>
+<h1><%= params[:date] %></h1>
 
 <%= form_tag dones_path, method: :post, class: "navbar-form navbar-left search-form" do %>
   <%= text_area_tag(
-      :search,
+      :dones,
       @dones,
       class: "form-control max-size borderless"
   ) %>
+
+  <%= text_field_tag :date, params[:date], hidden: true %>
+
+  <div>
+    <%= button_tag :submit %>
+  </div>
 <% end %>
 
 <style media="screen">
@@ -15,6 +21,6 @@
   }
 
   .borderless {
-    border-width: 0; 
+    border-width: 0;
   }
 </style>
