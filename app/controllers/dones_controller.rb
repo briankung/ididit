@@ -14,9 +14,11 @@ class DonesController < ApplicationController
   end
 
   def create
+    @dones = []
+
     Done.transaction do
       previous_dones = Done.on_date(date_param)
-      incoming_dones = dones_params.each_line.map(&:strip)
+      incoming_dones = dones_params.each_line.reject(&:blank?).map(&:strip)
       longer_index = [previous_dones.count, incoming_dones.count].max - 1
 
       (0..longer_index).each do |index|
@@ -25,17 +27,21 @@ class DonesController < ApplicationController
 
         if previous && incoming
           previous.update text: incoming unless previous.text == incoming
+          @dones << previous
         elsif previous && !incoming
           previous.destroy
         elsif !previous && incoming
-          Done.create text: incoming, date: date_param
+          @dones << Done.create(text: incoming, date: date_param)
         else # if !previous && !incoming
           raise 'wtf'
         end
       end
     end
 
-    redirect_back(fallback_location: dones_path, notice: 'Dones successfully created.')
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: dones_path, notice: 'Dones successfully created.') }
+      format.json { render(json: @dones.to_json, status: :ok) }
+    end
   end
 
   def update
@@ -70,7 +76,7 @@ class DonesController < ApplicationController
     end
 
     def dones_params
-      params.require :dones
+      params[:dones] || ''
     end
 
     def date_param

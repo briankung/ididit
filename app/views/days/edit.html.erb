@@ -1,6 +1,6 @@
 <h1><%= params[:date] %></h1>
 
-<%= form_tag dones_path, method: :post, class: "navbar-form navbar-left search-form" do %>
+<%= form_tag dones_path, method: :post, class: "navbar-form navbar-left dones-form" do %>
   <%= text_area_tag(
       :dones,
       @dones,
@@ -13,6 +13,8 @@
     <%= button_tag :submit %>
   </div>
 <% end %>
+
+<%= javascript_pack_tag 'days' %>
 
 <style media="screen">
   .max-size {

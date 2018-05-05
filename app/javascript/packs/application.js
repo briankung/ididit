@@ -6,27 +6,26 @@
 //
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
-import $ from 'jquery';
-import moment from 'moment';
+import $ from 'jquery'
+import moment from 'moment'
 
-global.$ = $;
-global.jQuery = $;
+global.$ = $
+global.jQuery = $
 global.moment = moment
 
 $(document).ready(function() {
   $('#q').on('keydown', function(e) {
-    if (e.keyCode == 13) {
-      window.location.href = "/?q=" + encodeURIComponent(e.target.value)
-    };
-    if ((e.shiftKey && e.keyCode == 191) || (e.keyCode == 84)) {
-      e.stopPropagation();
-    };
-  });
+    const { keyCode, shiftKey, target } = e
+    const enterKey = (keyCode == 13),
+          shiftFwdSlash = (shiftKey && keyCode == 191),
+          tKey = (keyCode == 84)
 
-  $('body').on('keydown', function(e) {
-    if (e.shiftKey && e.keyCode == 191) { // question mark
-      $('#q').focus();
-      e.preventDefault();
+    if (enterKey) {
+      window.location.href = "/?q=" + encodeURIComponent(target.value)
     }
-  });
-});
+
+    if (shiftFwdSlash || tKey) {
+      stopPropagation()
+    }
+  })
+})
