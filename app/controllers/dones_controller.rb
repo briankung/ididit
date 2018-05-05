@@ -15,13 +15,24 @@ class DonesController < ApplicationController
 
   def create
     Done.transaction do
-      Done.where(date: date_param).destroy_all
+      previous_dones = Done.on_date(date_param)
+      incoming_dones = dones_params.each_line.map(&:strip)
+      longer_index = [previous_dones.count, incoming_dones.count].max - 1
 
-      @dones = Done.create(
-        dones_params.each_line.map do |done|
-          Hash[text: done.strip, date: date_param]
+      (0..longer_index).each do |index|
+        previous = previous_dones[index]
+        incoming = incoming_dones[index]
+
+        if previous && incoming
+          previous.update text: incoming unless previous.text == incoming
+        elsif previous && !incoming
+          previous.destroy
+        elsif !previous && incoming
+          Done.create text: incoming, date: date_param
+        else # if !previous && !incoming
+          raise 'wtf'
         end
-      )
+      end
     end
 
     redirect_back(fallback_location: dones_path, notice: 'Dones successfully created.')
