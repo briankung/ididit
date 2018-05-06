@@ -17,9 +17,5 @@ class SearchController < ApplicationController
       .where(query)
       .order(:date)
       .group_by(&:date)
-
-    if @dones.count > 100
-      @read_only = true
-    end
   end
 end

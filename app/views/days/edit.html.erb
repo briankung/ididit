@@ -1,4 +1,7 @@
-<h1><%= params[:date] %></h1>
+<h1>
+  <%= params[:date] %>
+  <%= link_to image_tag('wolfram.ico', style: 'height: 20px;'), "http://www.wolframalpha.com/input/?i=#{params[:date]}" %>
+</h1>
 
 <%= form_tag dones_path, method: :post, class: "navbar-form navbar-left dones-form" do %>
   <%= text_area_tag(
