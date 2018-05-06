@@ -8,20 +8,3 @@
     <div><b><%= done.text %></b></div>
   <% end %>
 <% end %>
-
-<% if @dones.empty? && @param_is_date %>
-  <% date = Date.parse params[:q] %>
-  <h1>
-    <%= link_to image_tag('wolfram.ico', style: 'height: 20px;'), "http://www.wolframalpha.com/input/?i=#{params[:q]}" %>
-    <%= link_to params[:q], day_edit_path(params[:q]) %>
-    | <small><%= date.strftime('%A, %B %e') %> | <%= time_from_now(date) %></small>
-  </h1>
-<% end %>
-
-<% done_date = @param_is_date ? param_date : Date.current %>
-
-<% if @param_is_date %>
-  <script type="text/javascript">
-    window.paramIsDate = true
-  </script>
-<% end %>

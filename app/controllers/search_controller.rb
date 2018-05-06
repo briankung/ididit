@@ -1,4 +1,6 @@
 class SearchController < ApplicationController
+  before_action :param_is_date?
+
   def create
     return redirect_to(day_edit_path(Date.current)) unless params[:q]
 
@@ -18,4 +20,12 @@ class SearchController < ApplicationController
       .order(:date)
       .group_by(&:date)
   end
+
+  private
+    def param_is_date?
+      Date.parse(params[:q])
+      return redirect_to day_edit_path(params[:q])
+    rescue
+      # if it's not a date, just chill
+    end
 end

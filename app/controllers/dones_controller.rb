@@ -1,6 +1,5 @@
 class DonesController < ApplicationController
   before_action :set_done, only: [:show, :edit, :update, :destroy]
-  before_action :param_is_date?
 
   def index
     return redirect_to search_path(q: params[:q]) if params[:q]
@@ -87,11 +86,4 @@ class DonesController < ApplicationController
       params.require(:done).permit(:text, :date)
     end
 
-    def param_is_date?
-      begin
-        @param_is_date = !!Date.strptime(params[:q], DATE_FORMAT)
-      rescue
-        @param_is_date = false
-      end
-    end
 end
