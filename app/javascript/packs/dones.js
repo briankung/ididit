@@ -26,21 +26,6 @@ $(document).ready(() => {
   const date = $('#done_created_at').val();
   const dateText = window.localStorage.getItem(date);
 
-  $('.editable-entry').on('click', () => {
-    this.style.setProperty('display', 'none')
-    const form = $($(this).siblings('form.edit_done')[0])
-    form.css('display', 'inline')
-  });
-
-  $('form.edit_done').on('keyup', (e) => {
-    if (e.keyCode === 27) {
-      const form = $(this).closest('form');
-      form.css('display', 'none')
-      entry = form.siblings('.editable-entry')[0]
-      entry.style.setProperty('display', 'inline')
-    }
-  });
-
   $('form.new_done textarea#done_text').on('keydown', (e) => {
     if (e.metaKey && e.keyCode == 13) {
       $(this).closest('form').submit();
