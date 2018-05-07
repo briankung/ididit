@@ -36,19 +36,24 @@ $(document).ready(function() {
     500
   ))
 
-  $('.search-bar input').on('keydown', (e) => {
-    // 37 == left arrow, 39 == right arrow
-    const { metaKey, keyCode, altKey, shiftKey } = e
-    const leftArrow = keyCode == 37
-    const rightArrow = keyCode == 39
+  $('.search-bar input').on('keydown', (event) => {
+    const { metaKey: cmdKey, keyCode, altKey, shiftKey } = event,
+          leftArrow = keyCode == 37,
+          rightArrow = keyCode == 39,
+          cmdLeft = cmdKey && leftArrow,
+          cmdRight = cmdKey && rightArrow,
+          altLeft = altKey && leftArrow,
+          altRight = altKey && rightArrow,
+          shiftLeft = shiftKey && leftArrow,
+          shiftRight = shiftKey && rightArrow
 
-    if (metaKey && leftArrow)   return back('year')
-    if (metaKey && rightArrow)  return forward('year')
-    if (altKey && leftArrow)    return back('month')
-    if (altKey && rightArrow)   return forward('month')
-    if (shiftKey && leftArrow)  return back('week')
-    if (shiftKey && rightArrow) return forward('week')
-    if (leftArrow)              return back('day')
-    if (rightArrow)             return forward('day')
+    if (cmdLeft)    return back('year')
+    if (cmdRight)   return forward('year')
+    if (altLeft)    return back('month')
+    if (altRight)   return forward('month')
+    if (shiftLeft)  return back('week')
+    if (shiftRight) return forward('week')
+    if (leftArrow)  return back('day')
+    if (rightArrow) return forward('day')
   });
 })
