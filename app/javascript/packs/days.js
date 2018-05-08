@@ -31,7 +31,12 @@ $(document).ready(function() {
           data: serialized,
           dataType: 'json'
         }
-      ).then(data => console.log(data))
+      ).then(
+        () => {
+          $('body').addClass('success')
+          window.setTimeout(() => $('body').removeClass('success'), 900)
+        }
+      )
     },
     500
   ))
