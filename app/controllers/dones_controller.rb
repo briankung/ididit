@@ -13,37 +13,18 @@ class DonesController < ApplicationController
   end
 
   def create
-    @dones = []
+    previous = Done.on_date(date_param)
+    incoming = dones_params
+                 .each_line
+                 .reject(&:blank?)
+                 .map {|line| Done.new(date: date_param, text: line.strip) }
+    combined = zip_dones(previous, incoming)
 
-    Done.transaction do
-      previous_dones = Done.on_date(date_param)
-      incoming_dones = dones_params
-                         .each_line
-                         .reject(&:blank?)
-                         .map {|line| Done.new(date: date_param, text: line.strip) }
-      longer_index = [previous_dones.count, incoming_dones.count].max - 1
-
-      (0..longer_index).each do |index|
-        previous = previous_dones[index]
-        incoming = incoming_dones[index]
-
-        if previous && incoming
-          next if previous == incoming
-          previous.update(text: incoming.text)
-        elsif previous && !incoming
-          previous.destroy
-          next
-        elsif !previous && incoming
-          incoming.save
-        else # if !previous && !incoming
-          raise 'wtf'
-        end
-      end
-    end
+    @dones = handle_dones(combined).reject(&:blank?)
 
     respond_to do |format|
       format.html { redirect_back(fallback_location: dones_path, notice: 'Dones successfully created.') }
-      format.json { render(json: Done.on_date(date_param), status: :ok) }
+      format.json { render(json: @dones, status: :ok) }
     end
   end
 
@@ -74,6 +55,37 @@ class DonesController < ApplicationController
   end
 
   private
+    def handle_dones combined
+      Done.transaction do
+        combined.map do |(previous, incoming)|
+          if previous && incoming
+            previous.update(text: incoming.text) unless previous == incoming
+            previous
+          elsif previous && !incoming
+            previous.destroy
+            next # This will result in a #nil, hence handle_dones(combined).reject(&:blank?)
+          elsif !previous && incoming
+            incoming.tap(&:save)
+          else # if !previous && !incoming
+            raise 'wtf'
+          end
+        end
+      end
+    end
+
+    def zip_dones previous, incoming
+      # This method is necessary because Array#zip is limited by the length of
+      # the method receiver, not by combined length.
+      #     [1].zip([1,2]) #=> [[1,1]] 
+      #                        not [[1,1], [nil,2]]
+      if previous.length >= incoming.length
+        previous.zip(incoming)
+      else
+        # handle_dones needs previous dones to come first
+        incoming.zip(previous).map(&:reverse)
+      end
+    end
+
     def set_done
       @done = Done.find(params[:id])
     end
