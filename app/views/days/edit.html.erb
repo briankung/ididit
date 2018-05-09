@@ -1,5 +1,5 @@
 <h1>
-  <%= params[:date] %>
+  <%= Date.parse(params[:date]).strftime("#{DATE_FORMAT} - %A") %>
   <%= link_to image_tag('wolfram.ico', style: 'height: 20px;'), "http://www.wolframalpha.com/input/?i=#{params[:date]}" %>
 </h1>
 
@@ -38,7 +38,7 @@
   }
 
   .success {
-    background-color: rgb(204, 255, 144);
+    background-color: rgb(167, 255, 235);
     transition: background-color 0.6s ease-out;
   }
 </style>
