@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.1.5'
+gem 'rails', '~> 5.2'
 gem 'redcarpet', '~> 3.4.0'
 gem 'chartkick'
 gem 'sqlite3'
