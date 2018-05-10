@@ -24,7 +24,7 @@ class DonesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_back(fallback_location: dones_path, notice: 'Dones successfully created.') }
-      format.json { render(json: @dones, status: :ok) }
+      format.json { render(json: @dones, status: determine_status) }
     end
   end
 
@@ -76,7 +76,7 @@ class DonesController < ApplicationController
     def zip_dones previous, incoming
       # This method is necessary because Array#zip is limited by the length of
       # the method receiver, not by combined length.
-      #     [1].zip([1,2]) #=> [[1,1]] 
+      #     [1].zip([1,2]) #=> [[1,1]]
       #                        not [[1,1], [nil,2]]
       if previous.length >= incoming.length
         previous.zip(incoming)
@@ -84,6 +84,12 @@ class DonesController < ApplicationController
         # handle_dones needs previous dones to come first
         incoming.zip(previous).map(&:reverse)
       end
+    end
+
+    def determine_status
+      it_was_updated, was_it_created = @dones.any?(&:text_previously_changed?), @dones.any?(&:id_previously_changed?)
+
+      if it_was_updated then was_it_created ? :created : :ok else :no_content end
     end
 
     def set_done
