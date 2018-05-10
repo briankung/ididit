@@ -9,4 +9,8 @@ class Done < ApplicationRecord
                  .map {|attrs| attrs.values_at('text', 'date')}
                  .reduce(:==)
   end
+
+  def as_json(*)
+    super.tap { |as| as["destroyed"] = destroyed? }
+  end
 end

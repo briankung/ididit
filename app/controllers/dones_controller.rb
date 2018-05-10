@@ -20,7 +20,7 @@ class DonesController < ApplicationController
                  .map {|line| Done.new(date: date_param, text: line.strip) }
     combined = zip_dones(previous, incoming)
 
-    @dones = handle_dones(combined).reject(&:blank?)
+    @dones = handle_dones(combined)
 
     respond_to do |format|
       format.html { redirect_back(fallback_location: dones_path, notice: 'Dones successfully created.') }
@@ -63,7 +63,6 @@ class DonesController < ApplicationController
             previous
           elsif previous && !incoming
             previous.destroy
-            next # This will result in a #nil, hence handle_dones(combined).reject(&:blank?)
           elsif !previous && incoming
             incoming.tap(&:save)
           else # if !previous && !incoming
