@@ -38,7 +38,7 @@ $(document).ready(function() {
         }
       )
     },
-    500
+    1500
   ))
 
   $('.search-bar input').on('keydown', (event) => {
