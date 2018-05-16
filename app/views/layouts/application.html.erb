@@ -11,7 +11,7 @@
 
   <body>
     <div class="search-bar">
-      <%= text_field_tag :q, nil, placeholder: 'search...' %>
+      <%= text_field_tag :q, params[:q], placeholder: 'search...' %>
     </div>
     <%= yield %>
   </body>
