@@ -1,5 +1,9 @@
 <h1>
-  <%= Date.parse(params[:date]).strftime("#{DATE_FORMAT} - %A") %>
+  <%=
+    Date
+      .strptime(params[:date], DATE_FORMAT)
+      .strftime("#{DATE_FORMAT} - %A")
+  %>
   <%= link_to image_tag('wolfram.ico', style: 'height: 20px;'), "http://www.wolframalpha.com/input/?i=#{params[:date]}" %>
 </h1>
 

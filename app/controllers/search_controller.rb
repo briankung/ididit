@@ -23,7 +23,7 @@ class SearchController < ApplicationController
 
   private
     def param_is_date?
-      Date.parse(params[:q])
+      Date.strptime(params[:q], DATE_FORMAT)
       return redirect_to day_edit_path(params[:q])
     rescue
       # if it's not a date, just chill
