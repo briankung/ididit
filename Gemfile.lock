@@ -173,7 +173,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   chartkick
-  graphiql-rails
+  graphiql-rails (~> 1.4.10)
   graphql (~> 1.7.13)
   jbuilder (~> 2.5)
   listen (~> 3.0.5)
