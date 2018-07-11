@@ -6,6 +6,7 @@
   %>
   <%= link_to image_tag('wolfram.ico', style: 'height: 20px;'), "http://www.wolframalpha.com/input/?i=#{params[:date]}" %>
   <%= link_to image_tag('gmaps.png', style: 'height: 20px;'), "https://www.google.com/maps/timeline?pb=!1m2!1m1!1s#{params[:date]}" %>
+  <%= link_to image_tag('amazon.ico', style: 'height: 20px;'), ("https://www.amazon.com/photos/family?lcf=time&timeYear=%s&timeMonth=%s" % params[:date].split('-')) %>
 </h1>
 
 <%= form_tag dones_path, method: :post, class: "navbar-form navbar-left dones-form" do %>
