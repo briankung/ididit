@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 5.2'
 gem 'redcarpet', '~> 3.4.0'
 gem 'chartkick'
-gem 'sqlite3'
+gem 'sqlite3', '~> 1.3.6'
 gem 'sqlite3_ar_regexp'
 gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'
@@ -24,6 +24,6 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :jruby]
 
 gem 'graphiql-rails', '~> 1.4.10', group: :development
