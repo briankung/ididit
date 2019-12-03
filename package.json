@@ -6,7 +6,7 @@
     "moment": "^2.21.0"
   },
   "devDependencies": {
-    "webpack-dev-server": "3.1.11"
+    "webpack-dev-server": "^3.0"
   },
   "resolutions": {
     "node-sass": "^4.12.0"
