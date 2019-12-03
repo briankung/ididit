@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 6.0'
 gem 'redcarpet', '~> 3.4.0'
 gem 'chartkick'
-gem 'sqlite3', '~> 1.3.6'
+gem 'sqlite3', '~> 1.4'
 gem 'sqlite3_ar_regexp'
 gem 'puma', '~> 3.0'
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 6.0'
 gem 'webpacker', '~> 3.3'
 gem "graphql", '~> 1.7.13'
 
