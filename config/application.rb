@@ -16,7 +16,7 @@ module IDidIt
     # https://apple.stackexchange.com/a/333055/335512
     # basically `sudo visudo` then add the line `briankung ALL=(ALL) NOPASSWD: ALL`
     # Undo after return from China
-    # config.time_zone = `sudo systemsetup -gettimezone`.chomp.split.last
+    config.time_zone = 'Central Time (US & Canada)'
     config.active_record.default_timezone = :local
     config.generators do |g|
       g.test_framework  nil, fixture: false
