@@ -17,7 +17,7 @@ class SearchController < ApplicationController
 
     @dones = Done
       .where(query)
-      .order(:date)
+      .order(date: :desc)
       .group_by(&:date)
   end
 
