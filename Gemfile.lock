@@ -63,6 +63,9 @@ GEM
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
     crass (1.0.5)
+    dotiw (5.0.0)
+      activesupport
+      i18n
     erubi (1.9.0)
     ffi (1.11.3)
     globalid (0.4.2)
@@ -185,6 +188,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   chartkick
+  dotiw (~> 5.0.0)
   graphiql-rails (~> 1.4.10)
   graphql (~> 1.7.13)
   jbuilder (~> 2.5)

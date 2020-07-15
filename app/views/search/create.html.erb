@@ -3,7 +3,9 @@
 <h1>Dones</h1>
 
 <% @dones.each do |date, dones| %>
-  <h1><%= link_to "#{date} - #{date.strftime('%A')}", day_edit_path(date) %></h1>
+  <span title="<%= show_ages(date) %>">
+    <h1><%= link_to "#{date} - #{date.strftime('%A')}", day_edit_path(date) %></h1>
+  </span>
   <% dones.each do |done| %>
     <div><b><%= done.text %></b></div>
   <% end %>

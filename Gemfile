@@ -9,6 +9,7 @@ gem 'puma', '~> 3.12'
 gem 'sass-rails', '~> 6.0'
 gem 'webpacker', '~> 3.3'
 gem "graphql", '~> 1.7.13'
+gem "dotiw", '~> 5.0.0'
 
 gem 'jbuilder', '~> 2.5'
 

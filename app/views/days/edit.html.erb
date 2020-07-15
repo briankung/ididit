@@ -1,9 +1,7 @@
-<h1>
-  <%=
-    Date
-      .strptime(params[:date], DATE_FORMAT)
-      .strftime("#{DATE_FORMAT} - %A")
-  %>
+<% date = Date.strptime(params[:date], DATE_FORMAT) %>
+
+<h1 title="<%= show_ages(date) %>">
+  <%= date.strftime("#{DATE_FORMAT} - %A") %>
   <%= render partial: 'days/services' %>
 </h1>
 
