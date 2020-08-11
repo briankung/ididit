@@ -1,6 +1,6 @@
 <% date = Date.strptime(params[:date], DATE_FORMAT) %>
 
-<h1 title="<%= show_ages(date) %>">
+<h1 title="<%= show_distances_of_time(date) %>">
   <%= date.strftime("#{DATE_FORMAT} - %A") %>
   <%= render partial: 'days/services' %>
 </h1>
