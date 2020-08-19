@@ -2,7 +2,7 @@ class SearchController < ApplicationController
   before_action :param_is_date?
 
   def create
-    return redirect_to(day_edit_path(Date.current)) unless params[:q]
+    return redirect_to(day_edit_path(Date.current)) if params[:q].blank?
 
     if params[:q].start_with?('/') && params[:q].end_with?('/')
       query = [
