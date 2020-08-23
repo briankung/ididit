@@ -10,7 +10,7 @@ class MajorEvent
   end
 
   def to_s current_date
-    display_date(current_date)
+    display(current_date)
   end
 
   private
@@ -19,17 +19,19 @@ class MajorEvent
     distance_of_time_in_words(*args)
   end
 
-  def display_date current_date
-    dotiw = dotiw(@event_date, current_date, false, except: %i{hours minutes seconds})
+  def distance_from current_date
+    distance = dotiw(@event_date, current_date, false, except: %i{hours minutes seconds})
 
-    dotiw = if @event_date.to_date === current_date.to_date
-              "today"
-            elsif current_date < @event_date
-              "in #{dotiw}"
-            else
-              "#{dotiw} ago"
-            end
+    if @event_date.to_date === current_date.to_date
+      "today"
+    elsif current_date < @event_date
+      "in #{distance}"
+    else
+      "#{distance} ago"
+    end
+  end
 
-    "#{@display_text}: #{dotiw}"
+  def display current_date
+    "#{@display_text}: #{distance_from(current_date)}"
   end
 end
