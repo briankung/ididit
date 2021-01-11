@@ -17,8 +17,8 @@ class DaysController < ApplicationController
 
   def clamp_date
     return redirect_to day_edit_path(reformatted_date) if stupid_american_date
-    Date.strptime(params[:date], "%Y-%m-%d")
+    Time.strptime(params[:date], "%Y-%m-%d")
   rescue ArgumentError
-    redirect_to day_edit_path(Date.current)
+    redirect_to day_edit_path(Time.current.strftime(DATE_FORMAT))
   end
 end

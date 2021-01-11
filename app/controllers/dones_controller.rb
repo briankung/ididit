@@ -3,7 +3,7 @@ class DonesController < ApplicationController
 
   def index
     return redirect_to search_path(q: params[:q]) if params[:q]
-    return redirect_to(day_edit_path(Date.current))
+    return redirect_to(day_edit_path(Time.current.strftime(DATE_FORMAT)))
   end
 
   def show
