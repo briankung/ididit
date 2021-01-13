@@ -10,8 +10,15 @@ class ApplicationController < ActionController::Base
     today = MajorEvent.new("Today", Time.now)
     today.instance_eval do
       def to_s current_date
-        @event_date, current_date = current_date, @event_date
-        "#{distance_from(current_date)}\n"
+        distance = dotiw(current_date, @event_date, false, except: %i{hours minutes seconds})
+
+        if @event_date.to_date === current_date.to_date
+          "today"
+        elsif @event_date < current_date
+          "in #{distance}"
+        else
+          "#{distance} ago"
+        end
       end
     end
 
