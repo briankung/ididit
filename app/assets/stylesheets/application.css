@@ -20,6 +20,13 @@
 
 body {
   margin-top: 6em;
+  background-color: black;
+  color: white;
+}
+
+body, input, textarea {
+  background-color: black;
+  color: white;
 }
 
 .search-bar {
@@ -28,8 +35,8 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: white;
-  border-bottom: 1px solid black;
+  background-color: black;
+  border-bottom: 1px solid white;
 }
 
 .search-bar input {
