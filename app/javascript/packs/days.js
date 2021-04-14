@@ -32,10 +32,16 @@ $(document).ready(function() {
           dataType: 'json'
         }
       ).then(
-        () => {
-          $('body').addClass('success')
-          window.setTimeout(() => $('body').removeClass('success'), 900)
-        }
+        debounce(
+          () => {
+            document.body.classList.add('success');
+            window.setTimeout(
+              () => document.body.classList.remove('success'),
+              900
+            )
+          },
+          2000
+        )
       )
     },
     300
