@@ -21,8 +21,8 @@ const forward = (timeUnit) => {
 $(document).ready(function() {
   $('#dones').on('input', debounce(
     () => {
-      const { 0: { action: donesUrl }, 0: dones } = $('.dones-form')
-      const serialized = $(dones).serialize()
+      const { 0: { action: donesUrl }, 0: dones } = $('.dones-form');
+      const serialized = $(dones).serialize();
 
       $.ajax(
         donesUrl,
@@ -34,7 +34,7 @@ $(document).ready(function() {
       ).then(
         document.body.classList.add('success');
         window.setTimeout(() => document.body.classList.remove('success'), 900)
-      )
+      );
     },
     300
   ))

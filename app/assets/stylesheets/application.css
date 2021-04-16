@@ -24,7 +24,7 @@ body {
   color: white;
 }
 
-body, input, textarea {
+body, input, textarea, a {
   background-color: black;
   color: white;
 }
