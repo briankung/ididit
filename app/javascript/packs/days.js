@@ -31,10 +31,10 @@ $(document).ready(function() {
           data: serialized,
           dataType: 'json'
         }
-      ).then(
+      ).then(() => {
         document.body.classList.add('success');
         window.setTimeout(() => document.body.classList.remove('success'), 900)
-      );
+      });
     },
     300
   ))
