@@ -15,4 +15,23 @@
     </div>
     <%= yield %>
   </body>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      document.querySelector('#q').addEventListener('keydown', function(e) {
+        const { keyCode, shiftKey, target } = e,
+              enterKey = (keyCode == 13),
+              shiftFwdSlash = (shiftKey && keyCode == 191),
+              tKey = (keyCode == 84);
+
+        if (enterKey) {
+          window.location.href = "/?q=" + encodeURIComponent(target.value);
+        }
+
+        if (shiftFwdSlash || tKey) {
+          e.stopPropagation();
+        }
+      })
+    })
+  </script>
 </html>

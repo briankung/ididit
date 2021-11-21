@@ -42,3 +42,105 @@
     transition: background-color 2s ease-out;
   }
 </style>
+
+<script>
+  const debounce = (callback, wait) => {
+    let timeoutId = null;
+    return (...args) => {
+      window.clearTimeout(timeoutId);
+      timeoutId = window.setTimeout(() => {
+        callback.apply(null, args);
+      }, wait);
+    };
+  }
+
+  const serializeForm = function (form) {
+    var obj = {};
+    var formData = new FormData(form);
+    for (var key of formData.keys()) {
+      obj[key] = formData.get(key);
+    }
+    return JSON.stringify(obj);
+  };
+
+  const createDate = (days, months, years) => {
+    var date = new Date();
+    date.setDate(date.getDate() + days);
+    date.setMonth(date.getMonth() + months);
+    date.setFullYear(date.getFullYear() + years);
+    return date;
+  }
+
+  const dateParam = window.location.toString().match(/\d{4}-\d{2}-\d{2}/)[0]
+  const dateFormat = 'YYYY-MM-DD';
+  const date = new Date(dateParam);
+
+  const changeDate = (targetDate) => {
+    window.location = window.location.toString().replace(dateParam, targetDate)
+  }
+
+  const timeUnitKey = {
+    "year": [0, 0, 1],
+    "month": [0, 1, 0],
+    "week": [7, 0, 0],
+    "day": [1, 0, 0]
+  }
+
+  const back = (timeUnit) => {
+    let [days, months, years] = timeUnitKey[timeUnit].map(num => -num);
+    return changeDate(createDate(days, months, years).toISOString().split('T')[0])
+  }
+
+  const forward = (timeUnit) => {
+    let [days, months, years] = timeUnitKey[timeUnit];
+    return changeDate(createDate(days, months, years).toISOString().split('T')[0])
+  }
+
+  const sendData = (() => {
+    const donesForm = document.getElementById('dones'),
+          donesUrl = document.querySelector('.dones-form').action,
+          token = document.querySelector('meta[name=csrf-token]').content;
+
+    window.fetch(
+      donesUrl,
+      {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': token
+        },
+        body: JSON.stringify({dones: donesForm.value, date: dateParam})
+      }
+    ).then(() => {
+      document.body.classList.add('success');
+      window.setTimeout(() => document.body.classList.remove('success'), 900);
+    })
+  })
+
+  document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector('#dones').addEventListener('input', debounce(sendData, 300))
+  })
+
+  document.querySelector('.search-bar input').addEventListener('keydown', (event) => {
+    const { metaKey: cmdKey, keyCode, altKey, shiftKey } = event,
+          leftArrow = keyCode == 37,
+          rightArrow = keyCode == 39,
+          cmdLeft = cmdKey && leftArrow,
+          cmdRight = cmdKey && rightArrow,
+          altLeft = altKey && leftArrow,
+          altRight = altKey && rightArrow,
+          shiftLeft = shiftKey && leftArrow,
+          shiftRight = shiftKey && rightArrow
+
+    if (cmdLeft)    return back('year')
+    if (cmdRight)   return forward('year')
+    if (altLeft)    return back('month')
+    if (altRight)   return forward('month')
+    if (shiftLeft)  return back('week')
+    if (shiftRight) return forward('week')
+    if (leftArrow)  return back('day')
+    if (rightArrow) return forward('day')
+  })
+
+</script>
