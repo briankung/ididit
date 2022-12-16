@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 7.0'
-gem 'redcarpet', '~> 3.4.0'
+gem 'redcarpet', '~> 3.5.1'
 gem 'chartkick'
 gem 'sqlite3', '~> 1.4'
 gem 'sqlite3_ar_regexp'
