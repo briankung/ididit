@@ -1,16 +1,16 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 7.0'
-gem 'redcarpet', '~> 3.4.0'
+gem 'rails'
+gem 'redcarpet'
 gem 'chartkick'
-gem 'sqlite3', '~> 1.4'
+gem 'sqlite3'
 gem 'sqlite3_ar_regexp'
-gem 'puma', '~> 3.12'
-gem 'sass-rails', '~> 6.0'
-gem "graphql", '~> 1.7.13'
-gem "dotiw", '~> 5.0.0'
+gem 'puma'
+gem 'sass-rails'
+gem "graphql"
+gem "dotiw"
 
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder'
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -19,9 +19,9 @@ end
 
 group :development do
   gem 'web-console'
-  gem 'listen', '~> 3.0.5'
+  gem 'listen'
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-watcher-listen'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :jruby]
