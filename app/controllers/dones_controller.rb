@@ -16,7 +16,6 @@ class DonesController < ApplicationController
     previous = Done.on_date(date_param)
     incoming = dones_params
                  .each_line
-                 .reject(&:blank?)
                  .map {|line| Done.new(date: date_param, text: line.strip) }
     combined = zip_dones(previous, incoming)
 
