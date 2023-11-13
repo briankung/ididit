@@ -57,4 +57,5 @@ Rails.application.configure do
 
   # Add in local hosts domain
   config.hosts += %w[foundation.local foundation]
+  config.hosts += [ENV["TAILNET_HOSTNAME"]] if ENV["TAILNET_HOSTNAME"]
 end
